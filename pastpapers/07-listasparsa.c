@@ -4,34 +4,45 @@
 
 typedef struct Elemento Elemento;
 
-//questo e' l'antenato della classa
+//questo e' l'antenato della classe
 struct Elemento{
   char c;
   int pos;
   Elemento* next;
 };
 
-Elemento* add_element(Elemento* head, Elemento* new);
-Elemento* add_element_rec(Elemento* head, Elemento* new);
+
+
+//ho commetato tutto quello che non serve, le uniche funzioni che devi impara so le prime 3
 Elemento* crea_elemento(char c, int pos);
+Elemento* add_element(Elemento* head, Elemento* new);
 void display(Elemento* head);
-void freeList(Elemento* head);
 Elemento* creat_vettore_sparso(char string[], int len);
+//Elemento* add_element_rec(Elemento* head, Elemento* new);
+//void freeList(Elemento* head);
+
 
 int main(int argc, char **argv){
-
-  Elemento* head = creat_vettore_sparso("indissolubilmente", strlen("indissolubilmente"));
+  if( argc < 2)
+    return 1;
+  
+  Elemento* head = creat_vettore_sparso(argv[1], strlen(argv[1]));
+  printf("Il vettore sparo e': ");
   display(head);
+  //freeList(head);
 
   return 0;
 }
 
-Elemento* add_element_rec(Elemento* head, Elemento* new){
-  if( head == NULL)
-    return new;
 
-  head -> next = add_element_rec(head->next, new);
-  return head;
+
+//questa e' l'antenato del init
+Elemento* crea_elemento(char c, int pos){
+  Elemento* result = malloc(1*sizeof(Elemento));
+  result -> c = c;
+  result -> pos = pos;
+  result -> next = NULL;
+  return result;
 }
 
 Elemento* add_element(Elemento* head, Elemento* new){
@@ -49,44 +60,45 @@ Elemento* add_element(Elemento* head, Elemento* new){
   return head;
 }
 
+// Elemento* add_element_rec(Elemento* head, Elemento* new){
+//   if( head == NULL)
+//     return new;
 
-//questa e' l'antenato del init
-Elemento* crea_elemento(char c, int pos){
-  Elemento* result = malloc(1*sizeof(Elemento));
-  result -> c = c;
-  result -> pos = pos;
-  result -> next = NULL;
-  return result;
-}
+//   head -> next = add_element_rec(head->next, new);
+//   return head;
+// }
 
 
 void display(Elemento* head){
-  if(head != NULL){
-    printf("(%c %d)\n", head->c, head->pos);
-    display(head -> next);
+  if( head == NULL ){
+    printf("NULL\n");
+    return;
   }
+  printf("(%d,%c)->", head->pos, head->c);
+  display(head -> next);
 }
 
-void freeList(Elemento* head){
-  Elemento* linkNext;
+// void freeList(Elemento* head){
+//   Elemento* linkNext;
 
-  while(head != NULL){
-    linkNext = head -> next;
-    free(head);
-    head = linkNext;
-  }
-}
+//   while(head != NULL){
+//     linkNext = head -> next;
+//     free(head);
+//     head = linkNext;
+//   }
+// }
 
 
 Elemento* creat_vettore_sparso(char string[], int len){
   Elemento* result = NULL;
-  int bool_vocale;
+  int lower_v, upper_v;
   char c;
 
   for(int i = 0; i < len; i++){
     c = string[i];
-    bool_vocale = (c == 'a' ||  c == 'e' || c == 'i' || c == 'o' || c == 'u');
-    if(bool_vocale){
+    lower_v = (c == 'a' ||  c == 'e' || c == 'i' || c == 'o' || c == 'u');
+    upper_v = (c == 'A' ||  c == 'E' || c == 'I' || c == 'O' || c == 'U');
+    if(lower_v || upper_v){
       result = add_element(result, crea_elemento(c, i));
     }
   }
