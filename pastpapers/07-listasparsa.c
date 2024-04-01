@@ -1,3 +1,18 @@
+/*
+Scrivere un programma C che:
+
+1) Prede una parola da linea di comando
+
+2) Definisce un nodo Elemento come un record che contine une
+intero pos e un carattere c, e un punattore al nodo successivo
+
+3) Implementa la funzione
+Elemento *crea_vettore_sparo(char vettore[])
+-che crea una lista di nodi Elemento,
+-ovvero scorre il vettore in input e se l'elemento in posizione
+i-esima del vettore e' una vocale, crea un node, imposta il campo pos a i
+e il campo c a vettore[i] e lo inserisce nella lista.
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
