@@ -34,7 +34,7 @@ int main(int argc, char **argv){
   int i;
 
   //allocation
-  matrix = malloc(col * sizeof(int*));
+  matrix = malloc(row * sizeof(int*));
   if( matrix == NULL )
     return 2;
   
